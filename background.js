@@ -20,10 +20,19 @@ function startSubtitles() {
   recognition.onresult = (event) => {
     let transcript = '';
     for (let i = event.resultIndex; i < event.results.length; i++) {
-      transcript += event.results[i][0].transcript;
+      transcript += event.results[i][0].transcript + ' ';
     }
-    chrome.storage.local.set({ transcript });
+    chrome.storage.local.set({ transcript: transcript.trim() });
     console.log('Transcript: ', transcript);
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error: ', event.error);
+  };
+
+  recognition.onend = () => {
+    console.log('Speech recognition ended');
+    isTranscribing = false;
   };
 
   recognition.start();
@@ -34,7 +43,6 @@ function startSubtitles() {
 function stopSubtitles() {
   if (recognition) {
     recognition.stop();
-    isTranscribing = false;
     console.log('Subtitles stopped');
   }
 }
