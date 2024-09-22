@@ -3,7 +3,7 @@
   "name": "CaptionNOTE",
   "description": "Real-time subtitles for any video with optional notetaking functionality.",
   "version": "1.0",
-  "permissions": ["activeTab", "storage", "scripting", "microphone"],  // Added microphone permission if you're using speech recognition
+  "permissions": ["activeTab", "storage", "scripting"],  // Removed microphone permission
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
