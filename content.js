@@ -17,6 +17,8 @@ function updateSubtitles() {
     if (data.transcript) {
       subtitleDiv.textContent = data.transcript;
       subtitleDiv.style.display = 'block';
+    } else {
+      subtitleDiv.style.display = 'none';  // Hide if no transcript
     }
   });
 }
@@ -24,7 +26,7 @@ function updateSubtitles() {
 // Poll for updates every 2 seconds to update the subtitles
 setInterval(updateSubtitles, 2000);
 
-// To toggle showing notes in a sidebar
+// Notes sidebar
 chrome.storage.local.get('notes', (data) => {
   if (data.notes) {
     displayNotes(data.notes);
@@ -43,7 +45,13 @@ function displayNotes(notes) {
   noteDiv.style.padding = '10px';
   noteDiv.style.zIndex = 10001;
   noteDiv.style.fontFamily = 'Arial, sans-serif';
-  
+
+  // Close button for notes
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'Close Notes';
+  closeButton.onclick = () => noteDiv.style.display = 'none'; // Hide on close
+  noteDiv.appendChild(closeButton);
+
   notes.forEach((note) => {
     const noteElement = document.createElement('p');
     noteElement.innerHTML = `<strong>[${note.timestamp}]</strong> ${note.note}`;
