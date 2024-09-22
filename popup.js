@@ -1,3 +1,6 @@
+// popup.js
+
+// Event listeners for the subtitle buttons
 document.getElementById('startSubtitles').addEventListener('click', () => {
   chrome.runtime.sendMessage({ action: 'startSubtitles' });
   document.getElementById('status').textContent = 'Subtitles On';
@@ -8,6 +11,7 @@ document.getElementById('stopSubtitles').addEventListener('click', () => {
   document.getElementById('status').textContent = 'Subtitles Off';
 });
 
+// Event listener for saving notes
 document.getElementById('saveNote').addEventListener('click', () => {
   const note = document.getElementById('notes').value;
   if (note) {
@@ -16,8 +20,6 @@ document.getElementById('saveNote').addEventListener('click', () => {
     document.getElementById('status').textContent = 'Note Saved';
   }
 });
-
-// popup.js
 
 // Function to start speech recognition
 const startSpeechRecognition = () => {
@@ -54,5 +56,5 @@ const startSpeechRecognition = () => {
     }
 };
 
-// Attach the function to a button in your popup HTML
+// Attach the function to the speech recognition button
 document.getElementById('start-recognition').addEventListener('click', startSpeechRecognition);
