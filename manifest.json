@@ -3,7 +3,7 @@
   "name": "Subtitles & Notetaking Extension",
   "description": "Real-time subtitles for any video with optional notetaking functionality.",
   "version": "1.0",
-  "permissions": ["activeTab", "storage", "scripting", "microphone"],
+  "permissions": ["activeTab", "storage", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
