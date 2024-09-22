@@ -16,3 +16,43 @@ document.getElementById('saveNote').addEventListener('click', () => {
     document.getElementById('status').textContent = 'Note Saved';
   }
 });
+
+// popup.js
+
+// Function to start speech recognition
+const startSpeechRecognition = () => {
+    // Check if the browser supports the Web Speech API
+    if ('webkitSpeechRecognition' in window) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.continuous = true;
+        recognition.interimResults = false;
+
+        recognition.onstart = () => {
+            console.log('Speech recognition started');
+        };
+
+        recognition.onresult = (event) => {
+            let transcript = event.results[event.resultIndex][0].transcript;
+            console.log("Recognized speech: ", transcript);
+            // Display the recognized text in the popup
+            document.getElementById('transcript-display').innerText += transcript + ' ';
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Error occurred in speech recognition: ', event.error);
+        };
+
+        recognition.onend = () => {
+            console.log('Speech recognition ended');
+        };
+
+        // Start recognition
+        recognition.start();
+    } else {
+        console.error('Speech recognition not supported in this browser.');
+    }
+};
+
+// Attach the function to a button in your popup HTML
+document.getElementById('start-recognition').addEventListener('click', startSpeechRecognition);
