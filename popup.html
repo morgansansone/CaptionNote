@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Subtitles & Notetaking</title>
+  <title>CaptionNOTE</title>
+  <script src="popup.js" defer></script>
   <style>
     body { font-family: Arial, sans-serif; }
     button { padding: 10px; margin-top: 10px; }
     textarea { width: 100%; height: 100px; margin-top: 10px; }
+    #transcript-display { margin-top: 10px; font-size: 16px; }
   </style>
 </head>
 <body>
-  <h3>Subtitles & Notetaking</h3>
+  <h3>CaptionNOTE</h3>
   <button id="startSubtitles">Start Subtitles</button>
   <button id="stopSubtitles">Stop Subtitles</button>
+  
   <textarea id="notes" placeholder="Write your notes here..."></textarea>
   <button id="saveNote">Save Note</button>
+  
   <p>Status: <span id="status">Idle</span></p>
-  <script src="popup.js"></script>
+  
+  <button id="start-recognition">Start Recognition</button>
+  <div id="transcript-display"></div>
 </body>
 </html>
