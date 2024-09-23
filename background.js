@@ -2,12 +2,16 @@ let recognition;
 let isTranscribing = false;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'startSubtitles' && !isTranscribing) {
-    startSubtitles();
-  } else if (message.action === 'stopSubtitles' && isTranscribing) {
-    stopSubtitles();
-  } else if (message.action === 'saveNote') {
-    saveNoteToStorage(message.note);
+  switch (message.action) {
+    case 'startSubtitles':
+      if (!isTranscribing) startSubtitles();
+      break;
+    case 'stopSubtitles':
+      if (isTranscribing) stopSubtitles();
+      break;
+    case 'saveNote':
+      saveNoteToStorage(message.note);
+      break;
   }
 });
 
@@ -28,6 +32,7 @@ function startSubtitles() {
 
   recognition.onerror = (event) => {
     console.error('Speech recognition error: ', event.error);
+    isTranscribing = false; // Ensure the state is reset
   };
 
   recognition.onend = () => {
@@ -44,6 +49,7 @@ function stopSubtitles() {
   if (recognition) {
     recognition.stop();
     console.log('Subtitles stopped');
+    isTranscribing = false; // Ensure the flag is reset when stopped
   }
 }
 
